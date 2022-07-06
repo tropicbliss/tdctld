@@ -35,7 +35,7 @@ enum Commands {
     /// Get current time info
     Get {
         /// Date/time format
-        #[clap(arg_enum, default_value = "debug", short, long)]
+        #[clap(arg_enum, default_value = "debug")]
         std: GetDTFormats,
     },
 
@@ -46,7 +46,6 @@ enum Commands {
         std: SetDTFormats,
 
         /// Date/time to set to
-        #[clap(short, long)]
         datetime: String,
     },
 
@@ -64,7 +63,7 @@ enum Commands {
         servers: Option<Vec<String>>,
 
         /// Duration between synchronizations (in seconds)
-        #[clap(short, long, default_value = "86400")]
+        #[clap(short, long, default_value = "1800")]
         timeout: u64,
     },
 }
