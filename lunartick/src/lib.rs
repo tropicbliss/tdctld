@@ -27,9 +27,7 @@ impl Clock {
     pub fn now_synced() -> Result<Self, LunartickError> {
         let ntp_client = NTPClient::new();
         let adjust_ms = ntp_client.test()?.get_time_millis();
-        let adjust_ms = ChronoDuration::milliseconds(adjust_ms as i64);
-        let adjusted_dt = Local::now() + adjust_ms;
-        Ok(Self::new(adjusted_dt))
+        Ok(Self::now_with_offset(adjust_ms))
     }
 
     pub fn now() -> Self {
