@@ -63,7 +63,7 @@ enum Commands {
         servers: Option<Vec<String>>,
 
         /// Duration between synchronizations (in seconds)
-        #[clap(short, long, default_value = "1800")]
+        #[clap(default_value = "1800")]
         timeout: u64,
     },
 }
