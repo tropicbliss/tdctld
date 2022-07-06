@@ -35,7 +35,7 @@ enum Commands {
     /// Get current time info
     Get {
         /// Date/time format
-        #[clap(arg_enum, default_value = "debug", short, long)]
+        #[clap(arg_enum, default_value = "debug")]
         std: GetDTFormats,
     },
 
@@ -46,7 +46,7 @@ enum Commands {
         std: SetDTFormats,
 
         /// Date/time to set to
-        #[clap(short, long)]
+        #[clap()]
         datetime: String,
     },
 
