@@ -35,14 +35,14 @@ enum Commands {
     /// Get current time info
     Get {
         /// Date/time format
-        #[clap(arg_enum, default_value = "debug")]
+        #[clap(arg_enum, default_value = "debug", short, long)]
         std: GetDTFormats,
     },
 
     /// Set system time
     Set {
         /// Date/time format
-        #[clap(arg_enum)]
+        #[clap(arg_enum, short, long)]
         std: SetDTFormats,
 
         /// Date/time to set to
