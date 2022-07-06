@@ -2,7 +2,7 @@ use anyhow::{Context, Result};
 use clap::{clap_derive::ArgEnum, Parser, Subcommand};
 use lunartick::{Clock, NTPClient};
 use std::time::Duration;
-use tracing::info;
+use tracing::{info, warn};
 
 fn main() -> Result<()> {
     if std::env::var_os("RUST_LOG").is_none() {
@@ -126,7 +126,7 @@ fn sync(servers: Option<Vec<String>>) -> Result<()> {
         if let Some(time) = timing {
             info!("{server} => {time}ms away from local system time");
         } else {
-            info!("{server} => ? [response took too long]");
+            warn!("{server} => ? [response took too long]");
         }
     });
     let offset = results.get_time_millis();
