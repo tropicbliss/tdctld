@@ -1,0 +1,12 @@
+[package]
+name = "tdctld"
+description = "A cross-platform utility that is able to get, set, and sync system time, and is also an extremely accurate time-synchronization daemon on Linux"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0.58"
+clap = { version = "3.2.8", features = ["derive"] }
+lunartick = { path = "../lunartick" }
+tracing = "0.1.35"
+tracing-subscriber = { version = "0.3.14", features = ["env-filter"] }
