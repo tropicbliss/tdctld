@@ -1,8 +1,7 @@
-use std::time::Duration;
-
-use anyhow::{bail, Context, Result};
+use anyhow::{Context, Result};
 use clap::{clap_derive::ArgEnum, Parser, Subcommand};
 use lunartick::{Clock, NTPClient};
+use std::time::Duration;
 use tracing::info;
 
 fn main() -> Result<()> {
@@ -139,9 +138,6 @@ fn sync(servers: Option<Vec<String>>) -> Result<()> {
 
 #[allow(clippy::too_many_lines)]
 fn daemon(servers: Option<Vec<String>>, timeout: u64) -> Result<()> {
-    if std::env::consts::OS != "linux" {
-        bail!("You cannot run the daemon on non-Linux platforms");
-    }
     info!("starting daemon service");
     loop {
         sync(servers.clone())?;

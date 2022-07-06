@@ -1,6 +1,6 @@
 [package]
 name = "tdctld"
-description = "A cross-platform utility that is able to get, set, and sync system time, and is also an extremely accurate time-synchronization daemon on Linux"
+description = "A cross-platform utility that is able to get, set, and sync system time, and is also an extremely accurate time-synchronization daemon"
 repository = "https://github.com/tropicbliss/tdctld"
 version = "1.0.0"
 edition = "2021"
