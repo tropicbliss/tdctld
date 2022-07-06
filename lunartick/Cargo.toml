@@ -1,7 +1,11 @@
 [package]
 name = "lunartick"
+description = "Facilitates time-related tasks between the program and the system"
+repository = "https://github.com/tropicbliss/tdctld"
 version = "0.1.0"
 edition = "2021"
+license = "MIT"
+publish = true
 
 [dependencies]
 byteorder = "1.4.3"

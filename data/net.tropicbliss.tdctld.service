@@ -1,0 +1,11 @@
+[Unit]
+Description=Extremely accurate time-synchronization daemon
+After=multi-user.target
+
+[Service]
+ExecStart=/usr/bin/tdctld daemon
+Restart=always
+Type=simple
+
+[Install]
+WantedBy=multi-user.target
