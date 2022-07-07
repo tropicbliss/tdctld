@@ -1,8 +1,8 @@
 use anyhow::{Context, Result};
 use clap::{clap_derive::ArgEnum, Parser, Subcommand};
-use lunartick::{Clock, NTPClient};
+use lunartick::{Clock, LunartickError, NTPClient};
 use std::time::Duration;
-use tracing::{info, warn};
+use tracing::{error, info, warn};
 
 fn main() -> Result<()> {
     if std::env::var_os("RUST_LOG").is_none() {
@@ -108,7 +108,12 @@ fn set(std: SetDTFormats, datetime: String) -> Result<()> {
     };
     let dt = parser(datetime.clone())
         .context(format!("Unable to parse {datetime} according to {std:?}"))?;
-    dt.set()?;
+    let res = dt.set();
+    match res {
+        Err(LunartickError::SetError(e)) => error!(e),
+        Err(e) => return Err(e.into()),
+        _ => (),
+    }
     get(std.into());
     Ok(())
 }
@@ -130,7 +135,12 @@ fn sync(servers: Option<Vec<String>>) -> Result<()> {
     });
     let offset = results.get_time_millis();
     let adjusted_dt = Clock::now_with_offset(offset);
-    adjusted_dt.set()?;
+    let res = adjusted_dt.set();
+    match res {
+        Err(LunartickError::SetError(e)) => error!(e),
+        Err(e) => return Err(e.into()),
+        _ => (),
+    }
     get(GetDTFormats::Debug);
     Ok(())
 }
