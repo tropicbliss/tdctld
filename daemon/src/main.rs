@@ -125,14 +125,6 @@ fn sync(servers: Option<Vec<String>>) -> Result<()> {
         NTPClient::new()
     };
     let results = ntp_client.test()?;
-    let raw_timings = results.get_all_results();
-    raw_timings.into_iter().for_each(|(server, timing)| {
-        if let Some(time) = timing {
-            info!("{server} => {time}ms away from local system time");
-        } else {
-            warn!("{server} => ? [response took too long]");
-        }
-    });
     let offset = results.get_time_millis();
     let adjusted_dt = Clock::now_with_offset(offset);
     let res = adjusted_dt.set();
@@ -141,6 +133,14 @@ fn sync(servers: Option<Vec<String>>) -> Result<()> {
         Err(e) => return Err(e.into()),
         _ => (),
     }
+    let raw_timings = results.get_all_results();
+    raw_timings.into_iter().for_each(|(server, timing)| {
+        if let Some(time) = timing {
+            info!("{server} => {time}ms away from local system time");
+        } else {
+            warn!("{server} => ? [response took too long]");
+        }
+    });
     get(GetDTFormats::Debug);
     Ok(())
 }
